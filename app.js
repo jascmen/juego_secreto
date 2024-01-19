@@ -4,8 +4,8 @@ let listaNumerosSorteados = [];
 let numeroMaximo = 10;
 let intentosMaximos = 4;
 
-condicionesIniciales();
-//console.log(numeroSecreto);
+//condicionesIniciales();
+console.log(numeroSecreto);
 
 function asignarTextoElemento(elemento, texto){
     let elementoHtml = document.querySelector(elemento);
@@ -16,17 +16,18 @@ function asignarTextoElemento(elemento, texto){
 function verificarIntento(){
     let numeroDeUsuario = parseInt(document.getElementById('valorUsuario').value);
     //console.log(intentos);
-    if(intentos>intentosMaximos){
-        asignarTextoElemento('p', `Ya no tienes mas intentos, el numero secreto era ${numeroSecreto}`);
-        document.getElementById('reiniciar').setAttribute('disabled',true);
+
+    if(numeroDeUsuario===numeroSecreto){
+        asignarTextoElemento('p', `Adivinaste el numero secreto en ${intentos} ${intentos===1? 'intento':'intentos'}`);
+        asignarTextoElemento('h1', 'Felicidades, ganaste!');
         document.getElementById('intentar').setAttribute('disabled',true);
+        document.getElementById('reiniciar').removeAttribute('disabled');
     }else{
-        if(numeroDeUsuario===numeroSecreto){
-            asignarTextoElemento('p', `Adivinaste el numero secreto en ${intentos} ${intentos===1? 'intento':'intentos'}`);
-            asignarTextoElemento('h1', 'Felicidades, ganaste!');
+        if(intentos>intentosMaximos){
+            asignarTextoElemento('p', `Ya no tienes mas intentos, el numero secreto era ${numeroSecreto}`);
             document.getElementById('reiniciar').removeAttribute('disabled');
-        }else{
-            //el usuario no acerto
+            document.getElementById('intentar').setAttribute('disabled',true);
+        }else {
             if(numeroDeUsuario>numeroSecreto){
                 asignarTextoElemento('p', 'El numero secreto es menor');
             }else{
@@ -35,10 +36,14 @@ function verificarIntento(){
             }
             intentos++;
             limpiarInput();
-            
         }
+        
+        //el usuario no acerto
 
+        
     }
+
+    
     return;
 }
 
@@ -83,6 +88,7 @@ function reiniciarJuego() {
     condicionesIniciales();
     //desabilitar el boton de reiniciar
     document.querySelector('#reiniciar').setAttribute('disabled', true);
+    document.getElementById('intentar').removeAttribute('disabled');
 
 }
 
