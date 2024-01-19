@@ -37,10 +37,7 @@ function verificarIntento(){
             intentos++;
             limpiarInput();
         }
-        
-        //el usuario no acerto
 
-        
     }
 
     
